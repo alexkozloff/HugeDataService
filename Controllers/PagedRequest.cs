@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HugeDataService.Controllers
 {
@@ -7,6 +6,6 @@ namespace HugeDataService.Controllers
     {
         public string[] GroupKey { get; set; } = Array.Empty<string>();
         public int Skip { get; set; } = 0;
-        public int Take { get; set; } = 100;
+        public int Take { get; set; } = int.MaxValue;
     }
 }
