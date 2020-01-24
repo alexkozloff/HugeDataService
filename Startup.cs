@@ -24,9 +24,14 @@ namespace HugeDataService
                 .Bind(Configuration.GetSection("generate"))
                 .Services
                 .AddTransient(sp => sp.GetRequiredService<IOptions<GenerateOptions>>().Value);
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyMethod());
+            });
             
             services.AddControllers();
-
+            
             services.AddTransient<VehicleListGenerator>();
             services.AddTransient<VehicleGroupGenerator>();
             services.AddSingleton<VehicleStore>();
@@ -42,10 +47,8 @@ namespace HugeDataService
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
             app.UseRouting();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
